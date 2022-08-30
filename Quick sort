@@ -1,0 +1,49 @@
+#include <vector>
+#include <iostream>
+
+static int partition(std::vector<int> &arr, int startIndex, int endIndex) {
+    int pivotIndex = (startIndex + endIndex) / 2;
+    int pivotValue = arr[pivotIndex];
+
+    while (true) {
+      
+        while (arr[startIndex] < pivotValue) {
+            startIndex++;
+        }
+
+        
+        while (arr[endIndex] > pivotValue) {
+            endIndex--;
+        }
+
+        if (startIndex >= endIndex) {
+            return endIndex;
+        }
+
+      
+        int temp = arr[startIndex];
+        arr[startIndex] = arr[endIndex];
+        arr[endIndex] = temp;
+    }
+}
+
+void quickSort(std::vector<int> &arr, int startIndex, int endIndex) {
+  
+    if (startIndex < endIndex) {
+       
+        int pivotIndex = partition(arr, startIndex, endIndex);
+       
+        quickSort(arr, startIndex, pivotIndex);
+       
+        quickSort(arr, pivotIndex + 1, endIndex);
+    }
+}
+
+int main() {
+    std::vector<int> arr = {12, 11, 15, 10, 9, 1, 2, 3, 13, 14, 4, 5, 6, 7, 8};
+    quickSort(arr, 0, static_cast<int>(arr.size() - 1));
+    for (int i; i < arr.size(); i++) {
+        std::cout << arr[i];
+        if (i < arr.size() - 1) std::cout << ", ";
+    }
+}
